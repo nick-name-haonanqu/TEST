@@ -1,4 +1,5 @@
 
+
 <!DOCTYPE html>
 <html lang="zh-CN">
 <head>
@@ -9,7 +10,8 @@
 :root {
     --navy:#10233b; --navy-2:#173552; --blue:#2f80ed; --blue-soft:#eaf3ff;
     --bg:#f4f6f9; --card:#fff; --text:#172033; --muted:#7b8794;
-    --line:#e5eaf0; --shadow:0 8px 24px rgba(16,35,59,.06);
+    --line:#e3e9f0; --shadow:0 8px 24px rgba(16,35,59,.06);
+    --shadow-hover:0 14px 34px rgba(16,35,59,.10);
 }
 * { margin:0; padding:0; box-sizing:border-box; }
 body {
@@ -19,14 +21,16 @@ body {
 .hero {
     position:relative; overflow:hidden;
     background:linear-gradient(125deg, #0c1d31 0%, var(--navy-2) 58%, #18527c 100%);
-    color:#fff; padding:34px 40px 30px;
+    color:#fff; padding:38px max(40px,calc((100vw - 1520px)/2)) 34px;
 }
+.hero::before { content:""; position:absolute; width:520px; height:240px; left:45%; bottom:-225px; border-radius:50%; background:rgba(65,153,225,.16); filter:blur(3px); }
 .hero::after { content:""; position:absolute; width:320px; height:320px; right:-90px; top:-190px; border-radius:50%; border:54px solid rgba(255,255,255,.05); }
-.hero h1 { position:relative; z-index:1; font-size:26px; font-weight:750; letter-spacing:.5px; margin-bottom:5px; }
-.hero .sub { position:relative; z-index:1; font-size:12px; opacity:.68; }
+.hero h1 { position:relative; z-index:1; font-size:28px; font-weight:760; letter-spacing:.5px; margin-bottom:7px; }
+.hero .sub { position:relative; z-index:1; max-width:920px; font-size:12px; line-height:1.7; color:rgba(255,255,255,.72); }
+.hero-contact { display:inline-block; margin-left:3px; padding:0 7px; border-radius:999px; color:#d9efff; background:rgba(255,255,255,.10); font-weight:650; }
 
 /* Tabs */
-.tabs { position:sticky; top:0; z-index:50; display:flex; gap:4px; padding:8px 40px; background:rgba(255,255,255,.94); border-bottom:1px solid var(--line); backdrop-filter:blur(12px); }
+.tabs { position:sticky; top:0; z-index:50; display:flex; gap:4px; padding:8px max(40px,calc((100vw - 1520px)/2)); background:rgba(255,255,255,.94); border-bottom:1px solid var(--line); box-shadow:0 3px 12px rgba(16,35,59,.035); backdrop-filter:blur(12px); overflow-x:auto; }
 .tab { padding:8px 16px; font:600 13px/1.5 inherit; cursor:pointer; border:0; border-radius:7px; color:#73808f; background:transparent; transition:all .18s ease; }
 .tab.active { color:#1769c2; background:var(--blue-soft); }
 .tab:hover { color:#1769c2; background:#f3f7fc; }
@@ -42,24 +46,32 @@ body {
 .box .n { font-size:24px; line-height:1.15; font-weight:760; letter-spacing:-.4px; }
 .box .l { margin-top:4px; font-size:10px; color:var(--muted); letter-spacing:.4px; }
 .box.hl, .box.it { background:var(--card); border-color:var(--line); }
+.box { transition:transform .18s ease, box-shadow .18s ease, border-color .18s ease; }
+.box:hover { transform:translateY(-2px); border-color:#d5dee8; box-shadow:var(--shadow-hover); }
 
-.sec-t { padding:22px 40px 9px; font-size:14px; font-weight:700; color:#25364c; background:var(--bg); }
+.sec-t { display:flex; align-items:center; justify-content:space-between; gap:14px; padding:24px 40px 10px; font-size:14px; font-weight:720; color:#25364c; background:var(--bg); letter-spacing:.1px; }
+.sec-hint { font-size:10px; font-weight:500; color:#8a96a3; letter-spacing:0; }
 
 /* Matrix */
-.mw { margin:0 40px 20px; background:#fff; border:1px solid var(--line); border-radius:12px; box-shadow:var(--shadow); overflow-x:auto; }
+.mw { margin:0 40px 22px; background:#fff; border:1px solid var(--line); border-radius:12px; box-shadow:var(--shadow); overflow-x:auto; scrollbar-color:#c7d3df transparent; scrollbar-width:thin; }
+.mw::-webkit-scrollbar, .dw::-webkit-scrollbar, .patent-table-wrap::-webkit-scrollbar { height:9px; }
+.mw::-webkit-scrollbar-thumb, .dw::-webkit-scrollbar-thumb, .patent-table-wrap::-webkit-scrollbar-thumb { background:#c7d3df; border:2px solid #fff; border-radius:999px; }
 .mw table { width:100%; border-collapse:collapse; font-size:11px; min-width:1050px; }
 .mw th {
     background:#f8f9fc; padding:8px 6px; font-size:10px; font-weight:700;
     color:#5d6d7e; border-bottom:2px solid #d5dbdb; position:sticky; top:0; z-index:5;
     text-align:center; min-width:88px; white-space:nowrap;
 }
-.mw th:first-child { text-align:left; min-width:170px; padding-left:14px; }
-.rl { padding:10px 14px; border-bottom:1px solid #eee; background:#fcfcfd; white-space:nowrap; }
+.mw th:first-child { left:0; text-align:left; min-width:170px; padding-left:14px; z-index:8; box-shadow:1px 0 0 var(--line); }
+.rl { position:sticky; left:0; z-index:4; padding:10px 14px; border-bottom:1px solid #eee; background:#fcfcfd; white-space:nowrap; box-shadow:1px 0 0 var(--line); }
 .rl-name { font-weight:700; font-size:12px; display:block; }
 .rl-stat { font-size:9px; color:#95a5a6; display:block; margin-top:1px; }
 .mc { padding:6px 6px; text-align:center; border:1px solid #eee; vertical-align:middle; transition:all .12s; min-width:100px; }
 .mc.has { cursor:pointer; background:#f9fafb; }
 .mc.has:hover { background:#edf5ff; box-shadow:inset 0 0 0 2px #3498db40; transform:translateY(-1px); z-index:2; position:relative; }
+.mc-combined { background:linear-gradient(90deg,rgba(231,76,60,.18),rgba(230,126,34,.12)) !important; }
+.mc-combined:hover { background:linear-gradient(90deg,rgba(231,76,60,.21),rgba(230,126,34,.17)) !important; }
+.mc-scope { display:inline-block; margin:3px 0 2px; padding:2px 8px; border:1px solid rgba(192,57,43,.16); border-radius:999px; background:rgba(255,255,255,.72); color:#8f4b3c; font-size:9px; font-weight:700; }
 .mc.empty { background:#fcfcfd; }
 .mc.empty span { color:#e0e0e0; }
 .mc-top { display:flex; gap:3px; justify-content:center; flex-wrap:wrap; margin-bottom:3px; }
@@ -94,12 +106,12 @@ body {
 
 /* Detail Table */
 .dw { margin:0 40px 30px; background:#fff; border:1px solid var(--line); border-radius:12px; box-shadow:var(--shadow); overflow-x:auto; }
-.dw table { width:100%; border-collapse:collapse; font-size:11px; min-width:1200px; }
+.dw table { width:100%; border-collapse:collapse; font-size:12px; min-width:1200px; }
 .dw th {
     background:#f8f9fc; padding:8px 10px; font-size:10px; font-weight:700;
     color:#5d6d7e; border-bottom:2px solid #d5dbdb; position:sticky; top:0; z-index:5;
     text-align:left; white-space:nowrap; }
-.dw td { padding:7px 10px; border-bottom:1px solid #f0f0f0; }
+.dw td { padding:9px 10px; border-bottom:1px solid #f0f0f0; }
 .dw tr:hover { background:#f8faff; }
 .dw tr.itc { border-left:3px solid #e74c3c; }
 .dw tr.dc { border-left:3px solid #3498db; }
@@ -131,8 +143,9 @@ body {
 .leg { padding:6px 40px 20px; font-size:10px; color:#95a5a6; display:flex; gap:16px; flex-wrap:wrap; }
 
 /* Tab panels */
-.tab-panel { display:none; }
-.tab-panel.active { display:block; }
+.tab-panel { display:none; max-width:1600px; margin:0 auto; }
+.tab-panel.active { display:block; animation:panel-in .2s ease; }
+@keyframes panel-in { from{opacity:.55;transform:translateY(3px)} to{opacity:1;transform:none} }
 
 /* Result Summary tab */
 .rs-grid { display:grid; grid-template-columns:1fr 1fr; gap:16px; padding:0 40px 30px; }
@@ -169,19 +182,22 @@ body {
 .itc-stats-tbl tbody tr:hover { background:#f8faff; }
 
 /* Insights panel */
-.insights { display:grid; grid-template-columns:repeat(4,1fr); gap:12px; padding:0 40px 8px; background:#f0f2f5; }
+.insights { display:grid; grid-template-columns:repeat(4,minmax(0,1fr)); gap:12px; padding:0 40px 10px; background:transparent; }
 .insight-card {
-    background:#fff; border-radius:11px; padding:15px 16px; box-shadow:var(--shadow);
-    border-left:4px solid #3498db; position:relative; overflow:hidden;
+    min-height:132px; background:#fff; border-radius:11px; padding:16px 17px; box-shadow:var(--shadow);
+    border:1px solid var(--line); border-left:4px solid #3498db; position:relative; overflow:hidden;
+    transition:transform .18s ease, box-shadow .18s ease;
 }
+.insight-card:hover { transform:translateY(-2px); box-shadow:var(--shadow-hover); }
 .insight-card.ic-red { border-left-color:#e74c3c; }
 .insight-card.ic-green { border-left-color:#1e8449; }
 .insight-card.ic-orange { border-left-color:#e67e22; }
 .insight-card.ic-purple { border-left-color:#7D3C98; }
-.ic-tag { font-size:9px; font-weight:700; color:#95a5a6; letter-spacing:.5px; text-transform:uppercase; margin-bottom:4px; }
-.ic-title { font-size:13px; font-weight:700; color:#1a1a2e; margin-bottom:3px; line-height:1.3; }
-.ic-desc { font-size:11px; color:#666; line-height:1.5; }
+.ic-tag { display:inline-flex; align-items:center; min-height:20px; padding:2px 8px; border-radius:999px; background:#f2f5f8; font-size:9px; font-weight:750; color:#758392; letter-spacing:.5px; margin-bottom:8px; }
+.ic-title { font-size:13px; font-weight:720; color:#1a1a2e; margin-bottom:6px; line-height:1.4; }
+.ic-desc { font-size:11px; color:#5f6c79; line-height:1.65; }
 .ic-num { font-size:24px; font-weight:800; position:absolute; top:8px; right:14px; opacity:.12; }
+.ic-num:empty { display:none; }
 
 /* Win rate bar */
 .wr-bar-wrap { width:60px; height:6px; background:#eee; border-radius:3px; margin:3px auto 0; overflow:hidden; }
@@ -191,9 +207,9 @@ body {
 .wr-bar-fill.mid { background:#e67e22; }
 
 /* Strategic narrative */
-.narrative { margin:0 40px 20px; background:#fff; border:1px solid var(--line); border-radius:12px; box-shadow:var(--shadow); padding:17px 20px; }
-.narrative h4 { font-size:12px; font-weight:700; color:#1a1a2e; margin-bottom:8px; }
-.narrative p { font-size:11px; color:#555; line-height:1.7; margin-bottom:6px; }
+.narrative { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:10px; margin:0 40px 24px; background:#fff; border:1px solid var(--line); border-radius:12px; box-shadow:var(--shadow); padding:18px 20px 20px; }
+.narrative h4 { grid-column:1/-1; font-size:13px; font-weight:720; color:#1a1a2e; margin-bottom:2px; }
+.narrative p { margin:0; padding:12px 14px; border:1px solid #edf0f4; border-radius:9px; background:#fafbfd; font-size:11px; color:#56616e; line-height:1.75; }
 .narrative .hl { font-weight:700; color:#1a1a2e; }
 
 /* Patent portfolio */
@@ -223,20 +239,31 @@ body {
 .patent-note:focus { outline:none; border-color:#3498db; box-shadow:0 0 0 2px #3498db20; }
 .patent-empty { padding:30px; text-align:center; color:#95a5a6; }
 
-@media(max-width:768px){ .hero,.tabs,.fbar,.sec-t,.actions,.patent-toolbar{padding-left:14px;padding-right:14px} .hero{padding-top:26px;padding-bottom:24px} .hero h1{font-size:21px} .stats{grid-template-columns:repeat(2,minmax(0,1fr));padding:14px} .box{padding:12px 14px} .mw,.dw{margin:0 6px 12px} .insights{grid-template-columns:1fr;padding-left:6px;padding-right:6px} .narrative{margin:0 6px 14px} .patent-disclaimer{margin:10px 14px} .patent-content{padding:0 6px 24px} .patent-save-status{width:100%;margin-left:0} }
+@media(max-width:1100px){ .insights{grid-template-columns:repeat(2,minmax(0,1fr))} }
+@media(max-width:768px){
+    .hero,.tabs,.fbar,.sec-t,.actions,.patent-toolbar{padding-left:14px;padding-right:14px}
+    .hero{padding-top:27px;padding-bottom:25px}.hero h1{font-size:21px}.hero .sub{font-size:11px}
+    .tabs{white-space:nowrap}.tab{padding:7px 12px;font-size:12px}
+    .stats{grid-template-columns:repeat(2,minmax(0,1fr));padding:14px;gap:9px}.box{padding:12px 14px}.box .n{font-size:22px}
+    .mw,.dw{margin:0 6px 14px;border-radius:9px}.sec-t{padding-top:20px}
+    .sec-hint{display:inline}
+    .insights{grid-template-columns:1fr;padding-left:6px;padding-right:6px;gap:9px}.insight-card{min-height:0}
+    .narrative{grid-template-columns:1fr;margin:0 6px 14px;padding:15px 12px}.narrative p{padding:11px 12px}
+    .patent-disclaimer{margin:10px 14px}.patent-content{padding:0 6px 24px}.patent-save-status{width:100%;margin-left:0}
+}
 </style>
 </head>
 <body>
 
 <div class="hero">
     <h1>美国电子烟发明专利诉讼总览</h1>
-    <div class="sub">总览计算以及案件明细包含所有案件&middot; 矩阵仅显示原告包含大烟草的案件，需其他信息请联系@Kiko</div>
+    <div class="sub">总览依据与明细包含原告/被告为大烟草的案件 &middot; 诉讼矩阵仅显示原告为大烟草企业的案件 &middot; 需其他信息请联系 <span class="hero-contact">@Kiko</span></div>
 </div>
 
 <div class="tabs" role="tablist" aria-label="诉讼数据视图">
     <button type="button" class="tab active" onclick="switchTab('matrix')" id="tab-matrix" role="tab" aria-selected="true">诉讼矩阵总览</button>
     <button type="button" class="tab" onclick="switchTab('detail')" id="tab-detail" role="tab" aria-selected="false">案件明细表</button>
-    <button type="button" class="tab" onclick="switchTab('patents')" id="tab-patents" role="tab" aria-selected="false">专利资产</button>
+    <button type="button" class="tab" onclick="switchTab('patents')" id="tab-patents" role="tab" aria-selected="false">分权利人的专利信息与保护要点</button>
 </div>
 
 <!-- ═══════════ TAB 1: 矩阵总览 ═══════════ -->
@@ -254,33 +281,29 @@ body {
         <div class="ic-tag">337调查</div>
         <div class="ic-title">JUUL Labs 主导ITC专利战场</div>
         <div class="ic-desc">发起6起337调查（占60%），已结案4胜0败，胜率<span style="font-weight:700;color:#1e8449">100%</span>，2起进行中</div>
-        <div class="ic-num"></div>
     </div>
     <div class="insight-card ic-green">
         <div class="ic-tag">地区法院</div>
         <div class="ic-title">Imperial Brands 诉讼收官</div>
         <div class="ic-desc">15起地区法院诉讼（0起337），早期活跃，以收购韩力的专利为核心主攻BAT、Altria、JTI及美国小企业，基本以取得许可费结案</div>
-        <div class="ic-num"></div>
     </div>
     <div class="insight-card ic-orange">
         <div class="ic-tag">进行中</div>
         <div class="ic-title">JUUL与Altria双向对峙</div>
         <div class="ic-desc">3起337调查进行中，其中JUUL与Altria 2025年互发337（TA-1460 / TA-1469），形成双向对峙</div>
-        <div class="ic-num"></div>
     </div>
     <div class="insight-card ic-purple">
         <div class="ic-tag">虎口拔牙</div>
         <div class="ic-title">小型企业从BAT成功获取许可费</div>
-        <div class="ic-desc">26年7月，VPR披露其与BAT（RJR）的专利诉讼以获得1490万美金收尾<span style="font-weight:700;color:#c0392b"></span></div>
-        <div class="ic-num"></div>
+        <div class="ic-desc">2026年7月，VPR披露其与BAT（RJR）的专利诉讼以获得<span style="font-weight:700;color:#7D3C98">1,490万美元</span>收尾</div>
     </div>
 </div>
 
-<div class="sec-t">诉讼交互矩阵 &mdash; 点击可查看详情</div>
+<div class="sec-t"><span>诉讼交互矩阵 &mdash; 点击可查看详情</span><span class="sec-hint">表格支持横向滚动</span></div>
 
 <div class="mw">
 <table>
-<thead><tr><th>行原告 \ 列被告</th><th>BAT</th><th>Altria (NJOY)</th><th>PMI</th><th>JUUL</th><th>JTI (Logic)</th><th>ALD</th><th>Glas</th><th>中国企业</th><th>美国小企业</th><th>其他</th></tr></thead>
+<thead><tr><th>原告 / 被告</th><th>BAT</th><th>Altria (NJOY)</th><th>PMI</th><th>JUUL</th><th>JTI (Logic)</th><th>ALD</th><th>Glas</th><th>中国企业</th><th>美国小企业</th><th>其他</th></tr></thead>
 <tbody>
     <tr>
         <td class="rl" style="border-left:4px solid #8B0000">
@@ -330,11 +353,12 @@ body {
                 <div class="mc-pat">US11134722B2, US11606981B2<span style="color:#999"></span></div>
                 <div class="mc-yr">2023-2025 <span class="mi" title="涉及额外被告">&#9432;</span></div>
             </td>
-            <td class="mc has" data-pl="JUUL Labs" data-df="中国企业" onclick="openDetail(this)" style="background:rgba(231,76,60,0.18)">
+            <td colspan="2" class="mc has mc-combined" data-pl="JUUL Labs" data-df="中国企业" data-label="中国企业 + 美国小企业" onclick="openDetail(this)">
                 <div class="mc-top"><span class="md-itc">2 337调查</span><span class="md-dc">30 地院</span></div>
+                <div class="mc-scope">中国企业 + 美国小企业</div>
                 <div class="mc-pat">US10045568B2, US10058129B2, US10058130B2<span style="color:#999"> +6</span></div>
                 <div class="mc-yr">2018 <span class="mi" title="涉及额外被告">&#9432;</span></div>
-            </td><td class="mc empty"><span>--</span></td><td class="mc empty"><span>--</span></td>
+            </td><td class="mc empty"><span>--</span></td>
     </tr>
     <tr>
         <td class="rl" style="border-left:4px solid #7D3C98">
@@ -458,14 +482,15 @@ body {
     <p><span class="hl">JUUL Labs</span> — 攻击型策略，以ITC排除令为核心武器阻止竞品进口。6起337调查占全部专利337调查的60%，胜率100%，主攻中国企业（2起）和Altria（2起）。同时在地院也有34起诉讼，是诉讼总量最大的原告。</p>
     <p><span class="hl">Imperial Brands (Fontem)</span> — 赔偿追讨型策略，15起地区法院诉讼已全部结案，未使用337调查。早期主攻BAT（2案/12专利）、Altria（2案）、JTI/Logic（2案）和美国小企业（9案），并以获得许可费结案。</p>
     <p><span class="hl">BAT</span> — 混合策略，2起337调查（针对PMI+Altria、中国企业）配合2起地院诉讼。337胜率50%（1胜1败），是唯一在针对中国企业337中尝到败绩的巨头原告。</p>
-    <p><span class="hl">Altria (NJOY)</span> — 防御反击型，2起337调查均针对JUUL（TA-1372败诉、TA-1469进行中）。当前与JUUL的337双向对峙是最大看点，过往与BAT的案件中，虽337败诉，但反制BAT的地区法院诉讼其获得$9,523 万美元（过往侵权）
-+ 5.25% 持续提成（未来销售提成至 2035 年），是美国电子烟专利诉讼中最大的一笔赔偿</p>
+    <p><span class="hl">Altria (NJOY)</span> — 防御反击型，2起337调查均针对JUUL（TA-1372败诉、TA-1469进行中）。当前与JUUL的337双向对峙是最大看点。过往与BAT的案件中，虽337败诉，但反制BAT的地区法院诉讼获得9,523万美元（过往侵权）及5.25%持续提成（未来销售提成至2035年），是美国电子烟专利诉讼中最大的一笔赔偿。</p>
 </div>
 
 </div>
 
 <!-- ═══════════ TAB 2: 案件明细表 ═══════════ -->
 <div id="panel-detail" class="tab-panel">
+
+<div class="sec-t"><span>案件详细列表</span><span class="sec-hint">可搜索、筛选并批量选择案件</span></div>
 
 <div class="actions">
     <span class="select-all" onclick="toggleSelectAll()">全选 / 取消全选</span>
@@ -504,7 +529,7 @@ body {
 <thead>
     <tr>
         <th style="width:32px"><input type="checkbox" id="cb-all" onclick="event.stopPropagation(); toggleAllCb(this)"></th>
-        <th>年份</th>
+        <th>最早年份</th>
         <th>案件号</th>
         <th>案件类型</th>
         <th>原告专利权人</th>
@@ -1854,7 +1879,8 @@ function openDetail(el) {
     const pl = el.dataset.pl, df = el.dataset.df;
     const cell = M[pl] && M[pl][df];
     if (!cell) return;
-    document.getElementById('mt').textContent = (PL_LBL[pl]||pl) + ' → ' + (DF_LBL[df]||df);
+    const defendantLabel = el.dataset.label || DF_LBL[df] || df;
+    document.getElementById('mt').textContent = (PL_LBL[pl]||pl) + ' → ' + defendantLabel;
     let h = '<h3>案件概览</h3>';
     let parts = [];
     if (cell.itc > 0) parts.push('<b>' + cell.itc + '</b> 337调查');
