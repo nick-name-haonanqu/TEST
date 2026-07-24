@@ -1,11 +1,10 @@
 
-
 <!DOCTYPE html>
 <html lang="zh-CN">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>美国电子烟发明专利诉讼总览</title>
+<title>美国电子烟发明专利诉讼总览矩阵</title>
 <style>
 :root {
     --navy:#10233b; --navy-2:#173552; --blue:#2f80ed; --blue-soft:#eaf3ff;
@@ -256,14 +255,14 @@ body {
 <body>
 
 <div class="hero">
-    <h1>美国电子烟发明专利诉讼总览</h1>
-    <div class="sub">总览依据与明细包含原告/被告为大烟草的案件 &middot; 诉讼矩阵仅显示原告为大烟草企业的案件 &middot; 需其他信息请联系 <span class="hero-contact">@Kiko</span></div>
+    <h1>美国电子烟专利诉讼总览</h1>
+    <div class="sub">总览显示原告包含大烟草的案件 &middot; 案件详细表可查看原告为其他企业、被告为大烟草的案件 &middot; 需其他信息请联系 <span class="hero-contact">@Kiko</span></div>
 </div>
 
 <div class="tabs" role="tablist" aria-label="诉讼数据视图">
     <button type="button" class="tab active" onclick="switchTab('matrix')" id="tab-matrix" role="tab" aria-selected="true">诉讼矩阵总览</button>
     <button type="button" class="tab" onclick="switchTab('detail')" id="tab-detail" role="tab" aria-selected="false">案件明细表</button>
-    <button type="button" class="tab" onclick="switchTab('patents')" id="tab-patents" role="tab" aria-selected="false">分权利人的专利信息与保护要点</button>
+    <button type="button" class="tab" onclick="switchTab('patents')" id="tab-patents" role="tab" aria-selected="false">专利资产</button>
 </div>
 
 <!-- ═══════════ TAB 1: 矩阵总览 ═══════════ -->
@@ -355,7 +354,7 @@ body {
             </td>
             <td colspan="2" class="mc has mc-combined" data-pl="JUUL Labs" data-df="中国企业" data-label="中国企业 + 美国小企业" onclick="openDetail(this)">
                 <div class="mc-top"><span class="md-itc">2 337调查</span><span class="md-dc">30 地院</span></div>
-                <div class="mc-scope">中国企业 + 美国小企业</div>
+                <div class="mc-scope">被告：中国企业 + 美国小企业</div>
                 <div class="mc-pat">US10045568B2, US10058129B2, US10058130B2<span style="color:#999"> +6</span></div>
                 <div class="mc-yr">2018 <span class="mi" title="涉及额外被告">&#9432;</span></div>
             </td><td class="mc empty"><span>--</span></td>
@@ -490,7 +489,7 @@ body {
 <!-- ═══════════ TAB 2: 案件明细表 ═══════════ -->
 <div id="panel-detail" class="tab-panel">
 
-<div class="sec-t"><span>案件详细列表</span><span class="sec-hint">可搜索、筛选并批量选择案件</span></div>
+<div class="sec-t"><span>案件详细列表</span><span class="sec-hint">完整收录全部原告：含 VPR Brands 20 件、Smoore 4 件及 Healthier Choices 2 件</span></div>
 
 <div class="actions">
     <span class="select-all" onclick="toggleSelectAll()">全选 / 取消全选</span>
@@ -508,7 +507,17 @@ body {
     </select>
     <select id="dp" onchange="filterDetail()">
         <option value="">全部原告</option>
-        <option value="Imperial Brands">Imperial Brands</option><option value="JUUL Labs">JUUL Labs</option><option value="Altria">Altria (NJOY)</option><option value="BAT">BAT</option>
+        <optgroup label="大烟草">
+            <option value="Imperial Brands">Imperial Brands</option>
+            <option value="JUUL Labs">JUUL Labs</option>
+            <option value="Altria">Altria (NJOY)</option>
+            <option value="BAT">BAT</option>
+        </optgroup>
+        <optgroup label="其他专利权人">
+            <option value="VPR Brands">VPR Brands（20件）</option>
+            <option value="Smoore">Smoore（4件）</option>
+            <option value="Healthier Choices">Healthier Choices（2件）</option>
+        </optgroup>
     </select>
     <select id="dd" onchange="filterDetail()">
         <option value="">全部被告</option>
@@ -529,7 +538,7 @@ body {
 <thead>
     <tr>
         <th style="width:32px"><input type="checkbox" id="cb-all" onclick="event.stopPropagation(); toggleAllCb(this)"></th>
-        <th>最早年份</th>
+        <th>年份</th>
         <th>案件号</th>
         <th>案件类型</th>
         <th>原告专利权人</th>
